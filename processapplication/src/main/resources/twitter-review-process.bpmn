@@ -39,59 +39,59 @@
         <bpmn:flowNodeRef>Gateway_0mo5tek</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:task id="TweetErfassenTask" name="Tweet erfassen">
-      <bpmn:incoming>Flow_0g14elu</bpmn:incoming>
-      <bpmn:outgoing>Flow_0g7gign</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:intermediateCatchEvent id="AuftragZurUberarbeitungErhaltenEvent" name="Auftrag zur Überarbeitung erhalten">
-      <bpmn:incoming>Flow_1sx5zpw</bpmn:incoming>
-      <bpmn:outgoing>Flow_0xahfcj</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_08ldubt" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:eventBasedGateway id="Gateway_1st8tld">
-      <bpmn:incoming>Flow_0oso87i</bpmn:incoming>
-      <bpmn:outgoing>Flow_1sx5zpw</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0cl64n9</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1rvi78o</bpmn:outgoing>
-    </bpmn:eventBasedGateway>
-    <bpmn:task id="TweetUberarbeitenTask" name="Tweet überarbeiten">
-      <bpmn:incoming>Flow_0xahfcj</bpmn:incoming>
-      <bpmn:outgoing>Flow_1x2uxax</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:exclusiveGateway id="Gateway_0mo5tek">
-      <bpmn:incoming>Flow_1x2uxax</bpmn:incoming>
-      <bpmn:incoming>Flow_0g7gign</bpmn:incoming>
-      <bpmn:outgoing>Flow_0oso87i</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:startEvent id="IdeeZuTweetEingefallenStartEvent" name="Idee zu Tweet eingefallen">
-      <bpmn:outgoing>Flow_0g14elu</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:intermediateCatchEvent id="AblehnungsentscheidErhaltenEvent" name="Ablehnungs-entscheid erhalten">
-      <bpmn:incoming>Flow_1rvi78o</bpmn:incoming>
-      <bpmn:outgoing>Flow_0yrp3l3</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0y299mq" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:endEvent id="TweetVeroffentlichtEndEvent" name="Tweet veröffentlicht">
-      <bpmn:incoming>Flow_00y9uv9</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_00y9uv9" sourceRef="VeroffentlichungsMitteilungErhaltenEvent" targetRef="TweetVeroffentlichtEndEvent" />
+    <bpmn:sequenceFlow id="Flow_0yrp3l3" sourceRef="AblehnungsentscheidErhaltenEvent" targetRef="TweetAbgelehntEndEvent" />
+    <bpmn:sequenceFlow id="Flow_1x2uxax" sourceRef="TweetUberarbeitenTask" targetRef="Gateway_0mo5tek" />
+    <bpmn:sequenceFlow id="Flow_1rvi78o" sourceRef="Gateway_1st8tld" targetRef="AblehnungsentscheidErhaltenEvent" />
+    <bpmn:sequenceFlow id="Flow_0cl64n9" sourceRef="Gateway_1st8tld" targetRef="VeroffentlichungsMitteilungErhaltenEvent" />
+    <bpmn:sequenceFlow id="Flow_0oso87i" sourceRef="Gateway_0mo5tek" targetRef="Gateway_1st8tld" />
+    <bpmn:sequenceFlow id="Flow_0xahfcj" sourceRef="AuftragZurUberarbeitungErhaltenEvent" targetRef="TweetUberarbeitenTask" />
+    <bpmn:sequenceFlow id="Flow_1sx5zpw" sourceRef="Gateway_1st8tld" targetRef="AuftragZurUberarbeitungErhaltenEvent" />
+    <bpmn:sequenceFlow id="Flow_0g7gign" sourceRef="TweetErfassenTask" targetRef="Gateway_0mo5tek" />
+    <bpmn:sequenceFlow id="Flow_0g14elu" sourceRef="IdeeZuTweetEingefallenStartEvent" targetRef="TweetErfassenTask" />
+    <bpmn:endEvent id="TweetAbgelehntEndEvent" name="Tweet abgelehnt">
+      <bpmn:incoming>Flow_0yrp3l3</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:intermediateCatchEvent id="VeroffentlichungsMitteilungErhaltenEvent" name="Veröffentlichungs-Mitteilung erhalten">
       <bpmn:incoming>Flow_0cl64n9</bpmn:incoming>
       <bpmn:outgoing>Flow_00y9uv9</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1qdqmzw" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:endEvent id="TweetAbgelehntEndEvent" name="Tweet abgelehnt">
-      <bpmn:incoming>Flow_0yrp3l3</bpmn:incoming>
+    <bpmn:endEvent id="TweetVeroffentlichtEndEvent" name="Tweet veröffentlicht">
+      <bpmn:incoming>Flow_00y9uv9</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1x2uxax" sourceRef="TweetUberarbeitenTask" targetRef="Gateway_0mo5tek" />
-    <bpmn:sequenceFlow id="Flow_0oso87i" sourceRef="Gateway_0mo5tek" targetRef="Gateway_1st8tld" />
-    <bpmn:sequenceFlow id="Flow_0xahfcj" sourceRef="AuftragZurUberarbeitungErhaltenEvent" targetRef="TweetUberarbeitenTask" />
-    <bpmn:sequenceFlow id="Flow_1sx5zpw" sourceRef="Gateway_1st8tld" targetRef="AuftragZurUberarbeitungErhaltenEvent" />
-    <bpmn:sequenceFlow id="Flow_00y9uv9" sourceRef="VeroffentlichungsMitteilungErhaltenEvent" targetRef="TweetVeroffentlichtEndEvent" />
-    <bpmn:sequenceFlow id="Flow_0cl64n9" sourceRef="Gateway_1st8tld" targetRef="VeroffentlichungsMitteilungErhaltenEvent" />
-    <bpmn:sequenceFlow id="Flow_0g14elu" sourceRef="IdeeZuTweetEingefallenStartEvent" targetRef="TweetErfassenTask" />
-    <bpmn:sequenceFlow id="Flow_0g7gign" sourceRef="TweetErfassenTask" targetRef="Gateway_0mo5tek" />
-    <bpmn:sequenceFlow id="Flow_1rvi78o" sourceRef="Gateway_1st8tld" targetRef="AblehnungsentscheidErhaltenEvent" />
-    <bpmn:sequenceFlow id="Flow_0yrp3l3" sourceRef="AblehnungsentscheidErhaltenEvent" targetRef="TweetAbgelehntEndEvent" />
+    <bpmn:intermediateCatchEvent id="AblehnungsentscheidErhaltenEvent" name="Ablehnungs-entscheid erhalten">
+      <bpmn:incoming>Flow_1rvi78o</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yrp3l3</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0y299mq" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:startEvent id="IdeeZuTweetEingefallenStartEvent" name="Idee zu Tweet eingefallen">
+      <bpmn:outgoing>Flow_0g14elu</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_0mo5tek">
+      <bpmn:incoming>Flow_1x2uxax</bpmn:incoming>
+      <bpmn:incoming>Flow_0g7gign</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oso87i</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="TweetUberarbeitenTask" name="Tweet überarbeiten">
+      <bpmn:incoming>Flow_0xahfcj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1x2uxax</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:eventBasedGateway id="Gateway_1st8tld">
+      <bpmn:incoming>Flow_0oso87i</bpmn:incoming>
+      <bpmn:outgoing>Flow_1sx5zpw</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0cl64n9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1rvi78o</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="AuftragZurUberarbeitungErhaltenEvent" name="Auftrag zur Überarbeitung erhalten">
+      <bpmn:incoming>Flow_1sx5zpw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xahfcj</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_08ldubt" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:task id="TweetErfassenTask" name="Tweet erfassen">
+      <bpmn:incoming>Flow_0g14elu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g7gign</bpmn:outgoing>
+    </bpmn:task>
   </bpmn:process>
   <bpmn:process id="Process_021pwt9" isExecutable="false">
     <bpmn:laneSet id="LaneSet_0hu15xr">
@@ -142,8 +142,9 @@
   <bpmn:process id="Process_TwitterReview" name="Twitter-Review-Prozess" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0ch647t">
       <bpmn:lane id="MitarbeiterLane" name="Mitarbeiter">
-        <bpmn:flowNodeRef>TweetUberarbeitenTask1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>TweetEingereichtStartEvent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TweetUberarbeitenTask1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0rk4s3o</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="AutomatischLane" name="Automatisch">
         <bpmn:flowNodeRef>ManuellePrufungErforderlichGateway</bpmn:flowNodeRef>
@@ -214,19 +215,6 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_14fz7kr" sourceRef="TweetAnfragePrufenTask1" targetRef="Gateway_0vwhwno" />
     <bpmn:sequenceFlow id="Flow_096xcdp" sourceRef="TweetUberarbeitenTask1" targetRef="Gateway_0gxn63i" />
-    <bpmn:task id="TweetAnfragePrufenTask1" name="Tweet-Anfrage prüfen">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="checkResult">accepted</camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>JaSequenceFlow</bpmn:incoming>
-      <bpmn:outgoing>Flow_14fz7kr</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:task id="TweetUberarbeitenTask1" name="Tweet überarbeiten">
-      <bpmn:incoming>ZuUberarbeitenSequenceFlow1</bpmn:incoming>
-      <bpmn:outgoing>Flow_096xcdp</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:task id="TweetSendenTask" name="Tweet senden">
       <bpmn:incoming>GenehmigtSequenceFlow</bpmn:incoming>
       <bpmn:outgoing>Flow_009rtmd</bpmn:outgoing>
@@ -239,7 +227,17 @@
       <bpmn:incoming>AbgelehntSequenceFlow</bpmn:incoming>
       <bpmn:outgoing>Flow_0bpyw1q</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:startEvent id="TweetEingereichtStartEvent" name="Tweet eingereicht" camunda:asyncAfter="true">
+    <bpmn:startEvent id="TweetEingereichtStartEvent" name="Tweet eingereicht" camunda:asyncAfter="true" camunda:initiator="anfrageStellenderBenutzer">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="tweetContent" label="Gewünschter Tweet" type="string" />
+        </camunda:formData>
+        <camunda:executionListener event="end">
+          <camunda:script scriptFormat="JavaScript">var tweetContentShort = tweetContent.substring(0,10);
+
+execution.setProcessBusinessKey("T-" + anfrageStellenderBenutzer + "-" + tweetContentShort);</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
       <bpmn:outgoing>Flow_09kfwsd</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:task id="BenutzerinformationenAuslesenTask" name="Benutzerinformationen auslesen">
@@ -247,16 +245,74 @@
       <bpmn:incoming>Flow_09kfwsd</bpmn:incoming>
       <bpmn:outgoing>Flow_0pe345c</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:scriptTask id="TweetTextAutomatischPrufenTask" name="Tweet-Text automatisch prüfen" scriptFormat="JavaScript" camunda:resultVariable="checkResult">
+    <bpmn:userTask id="TweetAnfragePrufenTask1" name="Tweet-Anfrage prüfen" camunda:asyncAfter="true" camunda:candidateGroups="komm">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="tweetContent" label="Eingereichter Tweet" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="checkResultLocal" label="Prüfergebnis" type="enum">
+            <camunda:value id="accepted" name="Angenommen" />
+            <camunda:value id="rejected" name="Abgelehnt" />
+            <camunda:value id="revisible" name="Zu Überarbeiten" />
+          </camunda:formField>
+          <camunda:formField id="checkResultComment" label="Begründung" type="string" />
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="checkResultLocal">accepted</camunda:inputParameter>
+          <camunda:outputParameter name="checkResult">${checkResultLocal}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>JaSequenceFlow</bpmn:incoming>
+      <bpmn:outgoing>Flow_14fz7kr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="TweetUberarbeitenTask1" name="Tweet überarbeiten" camunda:asyncAfter="true" camunda:assignee="${anfragestellenderBenutzer}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="tweetContent" label="Eingereichter Tweet" type="string" />
+          <camunda:formField id="checkResultComment" label="Begründung" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="checkResult">manualCheckRequired</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>ZuUberarbeitenSequenceFlow1</bpmn:incoming>
+      <bpmn:outgoing>Flow_096xcdp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:subProcess id="Activity_0rk4s3o" triggeredByEvent="true">
+      <bpmn:task id="AlleBeteiligtenUberAbbruchInformierenTask" name="Alle Beteiligten über Abbruch informieren">
+        <bpmn:incoming>Flow_1jwb3sx</bpmn:incoming>
+        <bpmn:outgoing>Flow_1rxaz86</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:endEvent id="ProzessAbgebrochenEndEvent" name="Prozess abgebrochen">
+        <bpmn:incoming>Flow_1rxaz86</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:startEvent id="AbbruchErwunschtStartEvent" name="Abbruch erwünscht">
+        <bpmn:outgoing>Flow_1jwb3sx</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_0aku09l" messageRef="Message_0vq440s" />
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_1jwb3sx" sourceRef="AbbruchErwunschtStartEvent" targetRef="AlleBeteiligtenUberAbbruchInformierenTask" />
+      <bpmn:sequenceFlow id="Flow_1rxaz86" sourceRef="AlleBeteiligtenUberAbbruchInformierenTask" targetRef="ProzessAbgebrochenEndEvent" />
+    </bpmn:subProcess>
+    <bpmn:businessRuleTask id="TweetTextAutomatischPrufenTask" name="Tweet-Text automatisch prüfen" camunda:asyncAfter="true" camunda:decisionRef="TweetContentCombinedDecision">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="checkResult">${decisionResult.getSingleResult().result}</camunda:outputParameter>
+          <camunda:outputParameter name="checkResultComment">${decisionResult.getSingleResult().comment}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0pe345c</bpmn:incoming>
       <bpmn:outgoing>Flow_0z4adnm</bpmn:outgoing>
-      <bpmn:script>var result;
-
-result=(tweetContent.toLowerCase().indexOf("gpi") ==-1? "manualCheckRequired":"rejected");
-</bpmn:script>
-    </bpmn:scriptTask>
+    </bpmn:businessRuleTask>
   </bpmn:process>
   <bpmn:error id="Error_0cztbkf" name="DuplicateError" errorCode="DuplicateTweet" />
+  <bpmn:message id="Message_0vq440s" name="MessageCancelTwitterReview" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1ahv1wb">
       <bpmndi:BPMNShape id="Participant_0k4qwik_di" bpmnElement="MitarbeiterParticipant" isHorizontal="true" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
@@ -480,15 +536,6 @@ result=(tweetContent.toLowerCase().indexOf("gpi") ==-1? "manualCheckRequired":"r
           <dc:Bounds x="1429" y="923" width="82" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1tbv971_di" bpmnElement="BenutzerinformationenAuslesenTask">
-        <dc:Bounds x="323" y="858" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_145nhwu_di" bpmnElement="TweetAnfragePrufenTask1">
-        <dc:Bounds x="783" y="1094" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0puypjv_di" bpmnElement="TweetUberarbeitenTask1">
-        <dc:Bounds x="1144" y="713" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0qtbo24_di" bpmnElement="TweetSendenTask">
         <dc:Bounds x="1144" y="974" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -504,9 +551,44 @@ result=(tweetContent.toLowerCase().indexOf("gpi") ==-1? "manualCheckRequired":"r
           <dc:Bounds x="192" y="768" width="87" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1qmmm3u_di" bpmnElement="TweetTextAutomatischPrufenTask">
+      <bpmndi:BPMNShape id="Activity_1tbv971_di" bpmnElement="BenutzerinformationenAuslesenTask">
+        <dc:Bounds x="323" y="858" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0fswl3v_di" bpmnElement="TweetAnfragePrufenTask1">
+        <dc:Bounds x="783" y="1094" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xpnt3j_di" bpmnElement="TweetUberarbeitenTask1">
+        <dc:Bounds x="1144" y="713" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dhiih3_di" bpmnElement="TweetTextAutomatischPrufenTask">
         <dc:Bounds x="480" y="858" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vxv2ap_di" bpmnElement="Activity_0rk4s3o" isExpanded="true">
+        <dc:Bounds x="310" y="693" width="327" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sofjip_di" bpmnElement="AlleBeteiligtenUberAbbruchInformierenTask">
+        <dc:Bounds x="421" y="713" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1fkgpj8_di" bpmnElement="ProzessAbgebrochenEndEvent">
+        <dc:Bounds x="576" y="735" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="562" y="778" width="65" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jwbkxy_di" bpmnElement="AbbruchErwunschtStartEvent">
+        <dc:Bounds x="337" y="735" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="330" y="778" width="51" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1jwb3sx_di" bpmnElement="Flow_1jwb3sx">
+        <di:waypoint x="373" y="753" />
+        <di:waypoint x="421" y="753" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rxaz86_di" bpmnElement="Flow_1rxaz86">
+        <di:waypoint x="521" y="753" />
+        <di:waypoint x="576" y="753" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0pe345c_di" bpmnElement="Flow_0pe345c">
         <di:waypoint x="423" y="898" />
         <di:waypoint x="480" y="898" />

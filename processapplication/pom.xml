@@ -133,16 +133,16 @@
          Die Enterprise Repository benötigt hingegen Zugangsdaten, welche in einer Datei 
          settings.xml im .m2-Verzeichnis eingefügt werden. 
     -->  
-  <repositories> 
+   <repositories> 
     <repository> 
       <id>camunda-bpm-nexus</id>  
       <name>camunda-bpm-nexus</name>  
-      <url>https://app.camunda.com/nexus/content/groups/public</url> 
+      <url>https://app.camunda.com/artifactory/public/</url> 
     </repository>  
     <repository> 
       <id>camunda-bpm-ee</id>  
       <name>camunda-bpm-ee</name>  
-      <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-ee</url> 
+      <url>https://app.camunda.com/artifactory/camunda-bpm-ee/</url> 
     </repository> 
   </repositories> 
 </project>
